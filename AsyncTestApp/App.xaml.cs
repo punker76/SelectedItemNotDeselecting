@@ -13,5 +13,18 @@ namespace TestApp
     /// </summary>
     public partial class App : Application
     {
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            // MahApps window
+            var mahapps = new MahAppsWindow();
+            mahapps.Show();
+
+            // Default Window
+            var defaultWindow = new DefaultWindow();
+            defaultWindow.Show();
+        }
     }
 }
