@@ -18,11 +18,6 @@ namespace TestApp
         {
             base.OnStartup(e);
 
-            // MahApps window
-            var mahapps = new MahAppsWindow();
-            mahapps.Show();
-
-            // Default Window
             var defaultWindow = new DefaultWindow();
             defaultWindow.Show();
         }
