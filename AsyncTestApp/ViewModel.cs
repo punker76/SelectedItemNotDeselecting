@@ -11,7 +11,7 @@ using System.Windows.Threading;
 
 namespace TestApp
 {
-    public class MainWindowViewModel : ModelBase
+    public class ViewModel : ModelBase
     {
         private ObservableCollection<Window> _items = new ObservableCollection<Window>();
 
@@ -46,7 +46,7 @@ namespace TestApp
         ///<inheritdoc/>
         public ICollectionView FilteredItems { get; set; }
 
-        public MainWindowViewModel()
+        public ViewModel()
         {
             _data = new List<Window>()
             {
