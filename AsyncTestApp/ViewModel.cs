@@ -13,7 +13,42 @@ namespace TestApp
 {
     public class ViewModel : ModelBase
     {
-        private List<Window> _data = new List<Window>()
+        private ObservableCollection<Window> _items = new ObservableCollection<Window>();
+
+        public ObservableCollection<Window> Items
+        {
+            get => _items;
+            set => SetProperty(ref _items, value);
+        }
+
+        private ObservableCollection<Window> _selectedItems = new ObservableCollection<Window>();
+
+        public ObservableCollection<Window> SelectedItems
+        {
+            get => _selectedItems;
+            set => SetProperty(ref _selectedItems, value);
+        }
+
+        private List<Window> _data;
+
+        public string ItemFilter
+        {
+            get => _windowFilter;
+            set
+            {
+                SetProperty(ref _windowFilter, value);
+                FilteredItems.Refresh();
+            }
+        }
+
+        private string _windowFilter = string.Empty;
+
+        ///<inheritdoc/>
+        public ICollectionView FilteredItems { get; set; }
+
+        public ViewModel()
+        {
+            _data = new List<Window>()
             {
                 new Window
                 {
@@ -38,39 +73,6 @@ namespace TestApp
                 },
             };
 
-        private ObservableCollection<Window> _items = new ObservableCollection<Window>();
-
-        public ObservableCollection<Window> Items
-        {
-            get => _items;
-            set => SetProperty(ref _items, value);
-        }
-
-        private ObservableCollection<Window> _selectedItems = new ObservableCollection<Window>();
-
-        public ObservableCollection<Window> SelectedItems
-        {
-            get => _selectedItems;
-            set => SetProperty(ref _selectedItems, value);
-        }
-
-        public string ItemFilter
-        {
-            get => _windowFilter;
-            set
-            {
-                SetProperty(ref _windowFilter, value);
-                FilteredItems.Refresh();
-            }
-        }
-
-        private string _windowFilter = string.Empty;
-
-        ///<inheritdoc/>
-        public ICollectionView FilteredItems { get; set; }
-
-        public ViewModel()
-        {
             FilteredItems = CollectionViewSource.GetDefaultView(Items);
             FilteredItems.Filter = w =>
             {
@@ -83,10 +85,14 @@ namespace TestApp
                 return window?.Description.Contains(ItemFilter, StringComparison.OrdinalIgnoreCase) ?? false;
             };
 
+            // Manual refresh
             ManualRefreshCommand = new DelegateCommand(ManualRefresh);
+
+            // change and increase
             ChangeItemCommand = new DelegateCommand(ChangeItem);
         }
 
+        #region  Refresh
 
         public DelegateCommand ManualRefreshCommand { get; }
 
@@ -94,6 +100,10 @@ namespace TestApp
         {
             Items.UpdateCollection(_data);
         }
+
+        #endregion
+
+        #region Change and increase item
 
         public DelegateCommand ChangeItemCommand { get; }
 
@@ -103,5 +113,7 @@ namespace TestApp
 
             Items[0].Dimensions = new Rect(rand.Next(1, 100), rand.Next(1, 100), rand.Next(1, 100), rand.Next(1, 100));
         }
+
+        #endregion
     }
 }
