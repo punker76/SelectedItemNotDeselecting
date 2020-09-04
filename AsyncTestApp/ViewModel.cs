@@ -111,42 +111,7 @@ namespace TestApp
         {
             var rand = new Random();
 
-            _data[0].Dimensions = new Rect(rand.Next(1, 100), rand.Next(1, 100), rand.Next(1, 100), rand.Next(1, 100));
-
-            Items.UpdateCollection(_data);
-
-            //try
-            //{
-            //    var rand = new Random();
-            //    var updatedItems = new List<Window>();
-                
-
-            //    // Reflection to copy exisitng items, so we don't actualy effect the existing item for testing purpose
-            //    foreach(var item in Items)
-            //    {
-            //        var newWindow = new Window();
-            //        foreach(var sourceProperty in item.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
-            //        {
-            //            var targetProperty = newWindow?.GetType().GetProperty(sourceProperty.Name);
-
-            //            if(targetProperty != null && targetProperty.CanWrite)
-            //            {
-            //                targetProperty.SetValue(newWindow, sourceProperty.GetValue(item, null), null);
-            //            }
-            //        }
-
-            //        newWindow.Dimensions = new Rect(rand.Next(0, 10), rand.Next(10, 20), rand.Next(20, 30), rand.Next(30, 40));
-            //        newWindow.Description = $"Test{rand.Next(1, 1000)}";
-            //        updatedItems.Add(newWindow);
-            //    }
-
-            //    Items.UpdateCollection(updatedItems);
-            //}
-            //catch(Exception ex)
-            //{
-            //    System.Diagnostics.Debug.WriteLine("peps");
-            //}
-           
+            Items[0].Dimensions = new Rect(rand.Next(1, 100), rand.Next(1, 100), rand.Next(1, 100), rand.Next(1, 100));
         }
 
         #endregion

@@ -46,8 +46,7 @@
             <!-- Active Window List -->
             <DataGrid Grid.Row="1"
                       SelectionMode="Extended"
-                      ItemsSource="{Binding FilteredItems}"
-                      local:MultiSelectorHelper.SelectedItems="{Binding SelectedItems}">
+                      ItemsSource="{Binding FilteredItems}">
             </DataGrid>
         </Grid>
     </Grid>
